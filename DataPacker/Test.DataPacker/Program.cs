@@ -12,14 +12,14 @@ namespace Test.DataPacker
     {
         static void Main(string[] args)
         {
-            var data = new DtPack("заглушка");
+            var data = new DtPack();
 
             data.Pack(new Catalog()
             {
                 TxtFile = "ETOT TEKST TOJE ZAPAKOVAN",
                 Picture = new byte[] { 0x01, 0x02, 0x03 }, //Передать массив байтов картинки
-                SoftwareName = new string[] { "pervi", "vtoroi", "treti" } //Передать массив байтов программ
-            });
+                SoftwareName = new string[] { "pervi", "vtoroi", "treti" } 
+            }, "res.ovd");
 
             var res = data.Unpack("res.ovd");
 

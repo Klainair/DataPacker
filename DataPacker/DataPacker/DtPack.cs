@@ -13,12 +13,8 @@ namespace DataPacker
 
         public Catalog DCatalog { get; set; }
 
-
-        private string _filePath;
-
-        public DtPack(string filePath)
+        public DtPack()
         {
-            this._filePath = filePath;
         }
 
         public Catalog Unpack(string filePath)
@@ -79,10 +75,8 @@ namespace DataPacker
 
         
 
-        public void Pack(Catalog catalog)
+        public void Pack(Catalog catalog, string filePath)
         {
-            FileStream fs = new FileStream(_filePath, FileMode.OpenOrCreate, FileAccess.ReadWrite);
-
             MemoryStream stream = new MemoryStream();
             byte[] startAndEnd = GetSeparators(SeparatorType.HeadOrEnd);
 
@@ -104,7 +98,7 @@ namespace DataPacker
 
             stream.Write(startAndEnd, 0, startAndEnd.Length);
 
-            using (FileStream output = new FileStream("res.ovd", FileMode.Create, FileAccess.Write))
+            using (FileStream output = new FileStream(filePath, FileMode.Create, FileAccess.Write))
             {
                 output.Write(stream.ToArray(), 0, (int)stream.Length);
             }
