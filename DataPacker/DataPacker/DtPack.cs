@@ -78,7 +78,7 @@ namespace DataPacker
         public void Pack(Catalog catalog, string filePath)
         {
             MemoryStream stream = new MemoryStream();
-            byte[] startAndEnd = GetSeparators(SeparatorType.HeadOrEnd);
+            byte[] startAndEnd = Encoding.Unicode.GetBytes(".ovd0000");
 
             stream.Write(startAndEnd, 0, startAndEnd.Length);
 
@@ -141,34 +141,6 @@ namespace DataPacker
             ms.Write(data, 0, data.Length);
 
             return ms.ToArray();
-        }
-
-
-        byte[] GetSeparators(SeparatorType sepType)
-        {
-            switch (sepType)
-            {
-                case SeparatorType.HeadOrEnd:
-                    {
-                        List<byte> b = Encoding.Unicode.GetBytes(".ovd0000").ToList();
-                        return b.FindAll(x => x != 0).ToArray();
-                    }
-
-                case SeparatorType.Data:
-                    return new byte[] { 0xa7, 0xa8, 0xa9 };
-
-                case SeparatorType.Software:
-                    return new byte[] { 0xa7, 0x00, 0x00 };
-
-                default:
-                    throw new Exception("Указан неверный тип разделителя");
-            }
-        }
-        enum SeparatorType
-        {
-            HeadOrEnd,
-            Data,
-            Software
         }
     }
 }
