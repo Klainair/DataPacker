@@ -32,7 +32,7 @@ namespace DataPacker
                 st.Read(text_byte, 0, textLength);
                 string text = Encoding.Default.GetString(text_byte);
 
-                ///////////(((((
+                ///////////
                 _cat.TxtFile = text;
                 ////////////////////
 
